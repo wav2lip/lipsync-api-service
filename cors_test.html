@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GET and POST Requests</title>
+</head>
+<body>
+    <button onclick="makeGetRequest()">Make GET Request</button>
+    <button onclick="makePostRequest()">Make POST Request</button>
+    <script>
+        // 跨域测试，部署到云服务之后，域名可能出现跨域
+        function makeGetRequest() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'http://xxx.com/discovery/digital/video_list');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                } else {
+                    console.log('Request failed with status: ' + xhr.status);
+                }
+            };
+            xhr.onerror = function() {
+                console.log('Request failed');
+            };
+            xhr.send();
+        }
+
+        function makePostRequest() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://xxx.com/discovery/v1/login');
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                } else {
+                    console.log('Request failed with status: ' + xhr.status);
+                }
+            };
+            xhr.onerror = function() {
+                console.log('Request failed');
+            };
+            var requestBody = JSON.stringify({
+                "user_name": "hhh",
+                "user_pwd": "hhh"
+            });
+            xhr.send(requestBody);
+        }
+    </script>
+</body>
+</html>
